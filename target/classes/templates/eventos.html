@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- Compiled and minified CSS -->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{css/estilos.css}">
+    <title>TFG</title>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #5d3cb9;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #ffffff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #0d6e5f;
+        }
+
+        .active {
+            background-color: #03c27c;
+        }
+    </style>
+</head>
+<body style="background-color: #ffffff;color: #fff;font-family: monospace, serif;letter-spacing: 0.05em;">
+<ul>
+    <li><a th:href="@{/}">Inicio</a></li>
+    <li><a th:href="@{/eventos}">Eventos</a></li>
+    <li><a th:href="@{/competidores}">Competidores</a></li>
+    <li><a th:href="@{/mapas}">Mapas</a></li>
+    <li style="float:right"><a th:href="@{/perfil}">Perfil</a></li>
+</ul>
+<div style="align-items: center;margin-left: 85%; margin-top: 1%" >
+    <a class="btn btn-success" th:href="@{/login}">Log in</a>
+    <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
+</div>
+
+<table class="table" style="color: #377db0">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Fecha Inicio</th>
+        <th>Fecha Fin</th>
+        <th>Lat</th>
+        <th>Long</th>
+        <th>Trofeos</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="evento : ${listaEventos}">
+        <td th:text="${evento.getIdEvento()}"></td>
+        <td th:text="${evento.getNombre()}"></td>
+        <td th:text="${evento.getDescripcion()}"></td>
+        <td th:text="${evento.getFechaInicio()}"></td>
+        <td th:text="${evento.getFechaFin()}"></td>
+        <td th:text="${evento.getLatitud()}"></td>
+        <td th:text="${evento.getLongitud()}"></td>
+        <td>
+            <form th:action="@{/evento/editar}" method="get">
+                <button type="submit" class="btn btn-transparent" style="color: lawngreen" th:value="${evento.getIdEvento()}" name="nif"><i class="fa-solid fa-pencil"></i></button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/evento/eliminar}" method="post">
+                <button type="submit" class="btn btn-transparent" style="color: red" th:value="${evento.getIdEvento()}" name="nif"><i class="fa-solid fa-trash"></i></button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Compiled and minified JavaScript -->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

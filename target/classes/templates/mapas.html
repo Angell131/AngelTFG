@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+  <style>
+      body {
+        padding: 0;
+        margin: 0;
+      }
+      #map {
+        height: 100vh;
+        width: 100%;
+      }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #5d3cb9;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      color: #ffffff;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+      background-color: #0d6e5f;
+    }
+
+    .active {
+      background-color: #03c27c;
+    }
+  </style>
+</head>
+<body style="background-color: #ffffff;color: #fff;font-family: monospace, serif;letter-spacing: 0.05em;">
+
+<ul>
+  <li><a th:href="@{/}">Inicio</a></li>
+  <li><a th:href="@{/eventos}">Eventos</a></li>
+    <li><a th:href="@{/competidores}">Competidores</a></li>
+    <li><a th:href="@{/mapas}">Mapas</a></li>
+  <li style="float:right"><a th:href="@{/perfil}">Perfil</a></li>
+</ul>
+
+<div id="map">
+    <div class="leaflet-control coordinate"></div>
+</div>
+
+</body>
+</html>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script type="text/javascript">
+    var map = L.map('map').setView([40.3214,-3.7186], 16);
+
+    //mapa de openstreetmap
+    var mapita = L.tileLayer('https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png', {
+        maxZoom: 19});
+    //mapita.addTo(map);
+
+    //mapa de google
+    googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3']});
+    googleStreets.addTo(map);
+
+    map.on('mouseover', function () {
+        console.log('your mouse is over the map')
+    })
+
+
+    map.on('mouseup', function (e) {
+        document.getElementsByClassName('coordinate')[0].innerHTML = 'lat: ' + e.latlng.lat + 'lng: ' + e.latlng.lng;
+        console.log('lat: ' + e.latlng.lat, 'lng: ' + e.latlng.lng)
+    })
+
+    if(!navigator.geolocation) {
+        console.log("Tu navegador no soporta la geolocalización")
+    } else {
+        setInterval(() => {
+            navigator.geolocation.getCurrentPosition(getPosition)
+        }, 15000);
+    }
+
+
+    var marker, circle;
+
+    function getPosition(position) {
+
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        var accuracy = position.coords.accuracy;
+
+        if(marker) {
+            map.removeLayer(marker)
+        }
+        if(circle) {
+            map.removeLayer(circle)
+        }
+
+        marker = L.marker([lat, lon])
+            .bindPopup('Estás aquí')
+            .openPopup();
+
+        circle = L.circle([lat, lon], {radius: accuracy})
+
+        var featureGroup = L.featureGroup([marker, circle]).addTo(map)
+
+        map.fitBounds(featureGroup.getBounds())
+
+
+    }
+</script>
