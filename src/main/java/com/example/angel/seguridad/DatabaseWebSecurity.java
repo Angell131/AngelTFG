@@ -20,9 +20,9 @@ public class DatabaseWebSecurity {
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(origenDatos)
                 //.usersByUsernameQuery("select nif, pw, activo from usuario where nif=?")
-                .usersByUsernameQuery("select id_compe, contraseña, activo from competidores where id_compe=?")
+                .usersByUsernameQuery("select id_compe, contraseña, activo from competidor where id_compe=?")
                 //.authoritiesByUsernameQuery("SELECT NIF, rol FROM roles WHERE NIF=?");
-                .authoritiesByUsernameQuery("SELECT id_compe, rol FROM competidores WHERE id_compe=?");
+                .authoritiesByUsernameQuery("SELECT id_compe, rol FROM competidor WHERE id_compe=?");
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,7 +37,7 @@ public class DatabaseWebSecurity {
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/images/**").permitAll()
                 // No se requiere autenticación para acceso a la raiz y al login
-                .requestMatchers("/", "/login","/eventos","/mapas","/competidores").permitAll()
+                .requestMatchers("/", "/login","/eventos","/competidores").permitAll()
                 // Solo puede acceder a la vista clientes el usuario con rol SUPERUSUARIO
                 .requestMatchers("/admin/**").hasAuthority("ADMINISTRADOR")
                 // Solo puede acceder a la vista productos el usuario con rol USUARIO

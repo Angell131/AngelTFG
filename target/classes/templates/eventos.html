@@ -62,6 +62,7 @@
         <th>Lat</th>
         <th>Long</th>
         <th>Trofeos</th>
+        <th>Link</th>
         <th>Editar</th>
         <th>Eliminar</th>
     </tr>
@@ -75,6 +76,11 @@
         <td th:text="${evento.getFechaFin()}"></td>
         <td th:text="${evento.getLatitud()}"></td>
         <td th:text="${evento.getLongitud()}"></td>
+        <td th:text="${evento.getTrofeo()}"></td>
+        <td>
+            <a th:href="${evento.getImagen()}">Link</a>
+        </td>
+
         <td>
             <form th:action="@{/evento/editar}" method="get">
                 <button type="submit" class="btn btn-transparent" style="color: lawngreen" th:value="${evento.getIdEvento()}" name="nif"><i class="fa-solid fa-pencil"></i></button>

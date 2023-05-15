@@ -5,6 +5,7 @@ import com.example.angel.servicios.AsistenciaService;
 import com.example.angel.servicios.CompetidorService;
 import com.example.angel.servicios.EquipoService;
 import com.example.angel.servicios.EventoService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +43,7 @@ public class Controlador {
         else
             mv.addObject("compe", auth.getName());
         mv.setViewName("index");
-        String texto = "angel";
+        String texto = "123";
         String encriptado = encoder.encode(texto);
         System.out.println("Contraseña original: "+texto);
         System.out.println("Contraseña encriptado: "+encriptado);
@@ -100,11 +101,12 @@ public class Controlador {
             mv.addObject("compe", "No se ha iniciado sesión");
         else {
             mv.addObject("compe", auth.getName());
-            List<Evento> listaEventos = eventos.listaEventos();
-            mv.addObject("listaEventos", listaEventos);
         }
 
         mv.addObject("competidor", compe);
+
+        List<Evento> listaEventos = eventos.listaEventos();
+        mv.addObject("listaEventos", listaEventos);
 
         mv.setViewName("eventos");
         return mv;
@@ -118,14 +120,56 @@ public class Controlador {
             mv.addObject("compe", "No se ha iniciado sesión");
         else {
             mv.addObject("compe", auth.getName());
-            List<Competidor> listaCompetidores = competidores.listaCompetidores();
-            mv.addObject("listaCompetidores", listaCompetidores);
         }
 
         mv.addObject("competidor", compe);
 
+        List<Competidor> listaCompetidores = competidores.listaCompetidores();
+        mv.addObject("listaCompetidores", listaCompetidores);
+
         mv.setViewName("competidores");
         return mv;
+    }
+
+
+    @RequestMapping("/evento/nuevo")
+    public ModelAndView peticionNuevaTarea(Authentication auth) {
+        ModelAndView mv = new ModelAndView();
+        if(auth==null)
+            mv.addObject("user", "No se ha iniciado sesión");
+        else
+            mv.addObject("user", auth.getName());
+        Evento e = new Evento();
+        mv.addObject("evento", e);
+        mv.setViewName("nuevoevento");
+        return mv;
+    }
+
+    @RequestMapping("/evento/editar")
+    public ModelAndView peticioUsuariosEditar(Authentication auth, HttpServletRequest request) {
+        Integer id = request.getParameter("id") == null ? 0 : Integer.valueOf(request.getParameter("id"));
+        Optional<Evento> eventoOptional = eventos.buscarEvento(id);
+        Evento eve = eventoOptional.get();
+        ModelAndView mv = new ModelAndView();if(auth==null)
+            mv.addObject("user", "No se ha iniciado sesión");
+        else
+            mv.addObject("user", auth.getName());
+
+        mv.addObject("evento", eve);
+        mv.setViewName("editarevento");
+        return mv;
+    }
+
+
+    @RequestMapping("/actualizar")
+    public String peticionActualizar(Evento e, Authentication auth) {
+        eventos.guardarEvento(e);
+        return "redirect:/eventos";
+    }
+    @RequestMapping("/actualizarCompetidor")
+    public String peticionActualizarTarea(Competidor c, Authentication auth) {
+        competidores.guardarCompetidor(c);
+        return "redirect:/competidores";
     }
 
 
