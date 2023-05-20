@@ -17,16 +17,15 @@ insert into equipo values (1,'Taekwondo Getafe','Pabellón Felipe Reyes',40.3173
 
 --
 create table competidor (
-                            id_compe int not null auto_increment primary key,
                             nombre varchar(20),
-                            email varchar(60),
+                            email varchar(60) primary key,
                             contraseña varchar(200),
                             rol varchar(30),
                             activo tinyint,
                             id_equipo int,
                             foreign key(id_equipo) references equipo(id_equipo)
 );
-insert into competidor values (1,'Angel','angel@angel.es','$2a$10$orT4HERjHQr78sC6h3uJ2.iiDPhJJYQ4OiSl3rgb72VJzD3wPaXle','ADMINISTRADOR',1,1),(2,'Victor','victor@victor.es','$2a$10$UpTek4pXgppnEGhFfSFgdunJshlBY/ucjLnXPkU.SaCIUnBJk51ZC','USUARIO',1,1),(3,'Diego','diego@diego.es','$2a$10$UpTek4pXgppnEGhFfSFgdunJshlBY/ucjLnXPkU.SaCIUnBJk51ZC','USUARIO',1,2),(4,'Angela','angela@angela.es','$2a$10$UpTek4pXgppnEGhFfSFgdunJshlBY/ucjLnXPkU.SaCIUnBJk51ZC','USUARIO',1,2);
+insert into competidor values ('Angel','angel@angel.es','$2a$10$orT4HERjHQr78sC6h3uJ2.iiDPhJJYQ4OiSl3rgb72VJzD3wPaXle','ADMINISTRADOR',1,1),('Victor','victor@victor.es','$2a$10$UpTek4pXgppnEGhFfSFgdunJshlBY/ucjLnXPkU.SaCIUnBJk51ZC','USUARIO',1,1),('Diego','diego@diego.es','$2a$10$UpTek4pXgppnEGhFfSFgdunJshlBY/ucjLnXPkU.SaCIUnBJk51ZC','USUARIO',1,2),('Angela','angela@angela.es','$2a$10$UpTek4pXgppnEGhFfSFgdunJshlBY/ucjLnXPkU.SaCIUnBJk51ZC','USUARIO',1,2);
 -- Contra de angel es angel
 
 --

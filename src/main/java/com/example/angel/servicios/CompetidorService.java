@@ -24,8 +24,8 @@ public class CompetidorService {
     }
 
 
-    public Optional<Competidor> buscarCompetidor(Integer name) {
-        return competidores.findById(name);
+    public Optional<Competidor> buscarCompetidor(String email) {
+        return competidores.findById(email);
     }
 
     public void guardarCompetidor(Competidor c) {

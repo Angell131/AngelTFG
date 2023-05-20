@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface CompetidorRepositorio extends JpaRepository<Competidor, Integer> {
+public interface CompetidorRepositorio extends JpaRepository<Competidor, String> {
 
     List<Competidor> findByNombre(String nombre);
 }

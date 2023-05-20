@@ -81,7 +81,7 @@ public class Controlador {
             mv.addObject("compe", "No se ha iniciado sesión");
         else {
             mv.addObject("compe", auth.getName());
-            Optional<Competidor> compeOpcional = competidores.buscarCompetidor(Integer.valueOf(auth.getName()));
+            Optional<Competidor> compeOpcional = competidores.buscarCompetidor(auth.getName());
 
             if (compeOpcional.isPresent())
                 compe = compeOpcional.get();
@@ -90,6 +90,20 @@ public class Controlador {
         mv.addObject("usuario", compe);
 
         mv.setViewName("mapas");
+        return mv;
+    }
+
+    @RequestMapping("/perfil")
+    public ModelAndView peticionPerfil(Authentication auth) {
+        ModelAndView mv = new ModelAndView();
+        if(auth==null)
+            mv.addObject("compe", "No se ha iniciado sesión");
+        else
+            mv.addObject("compe", auth.getName());
+        Optional<Competidor> cOpcional = competidores.buscarCompetidor(auth.getName());
+        Competidor c = cOpcional.get();
+        mv.addObject("usuario", c);
+        mv.setViewName("perfil");
         return mv;
     }
 
@@ -174,19 +188,7 @@ public class Controlador {
 
 
 
-    /*@RequestMapping("/compe/perfil")
-    public ModelAndView peticionPerfil(Authentication auth) {
-        ModelAndView mv = new ModelAndView();
-        if(auth==null)
-            mv.addObject("compe", "No se ha iniciado sesión");
-        else
-            mv.addObject("compe", auth.getName());
-        Optional<Usuario> uOpcional = usuarios.buscarUsuario(auth.getName());
-        Usuario u = uOpcional.get();
-        mv.addObject("usuario", u);
-        mv.setViewName("perfil");
-        return mv;
-    }
+    /*
 
     @RequestMapping("/compe/tareas/nueva")
     public ModelAndView peticionNuevaTarea(Authentication auth) {

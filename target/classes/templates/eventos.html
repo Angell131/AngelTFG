@@ -44,12 +44,10 @@
     <li><a th:href="@{/eventos}">Eventos</a></li>
     <li><a th:href="@{/competidores}">Competidores</a></li>
     <li><a th:href="@{/mapas}">Mapas</a></li>
-    <li style="float:right"><a th:href="@{/perfil}">Perfil</a></li>
+    <li style="float:right; margin-right: 1rem;margin-top: 0.4rem;"><a class="btn btn-danger" th:href="@{/logout}">Log out</a></li>
+    <li style="float:right; margin-right: 1rem;margin-top: 0.4rem;"><a class="btn btn-success" th:href="@{/login}">Log in</a></li>
+
 </ul>
-<div style="align-items: center;margin-left: 85%; margin-top: 1%" >
-    <a class="btn btn-success" th:href="@{/login}">Log in</a>
-    <a class="btn btn-danger" th:href="@{/logout}">Log out</a>
-</div>
 
 <table class="table" style="color: #377db0">
     <thead>
@@ -83,12 +81,12 @@
 
         <td>
             <form th:action="@{/evento/editar}" method="get">
-                <button type="submit" class="btn btn-transparent" style="color: lawngreen" th:value="${evento.getIdEvento()}" name="nif"><i class="fa-solid fa-pencil"></i></button>
+                <button type="submit" class="btn btn-transparent" style="color: lawngreen" th:value="${evento.getIdEvento()}" name="email"><i class="fa-solid fa-pencil"></i></button>
             </form>
         </td>
         <td>
             <form th:action="@{/evento/eliminar}" method="post">
-                <button type="submit" class="btn btn-transparent" style="color: red" th:value="${evento.getIdEvento()}" name="nif"><i class="fa-solid fa-trash"></i></button>
+                <button type="submit" class="btn btn-transparent" style="color: red" th:value="${evento.getIdEvento()}" name="email"><i class="fa-solid fa-trash"></i></button>
             </form>
         </td>
     </tr>

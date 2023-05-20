@@ -7,9 +7,9 @@
     <title>Perfil</title>
 </head>
 <body style="background-color: #212121;color: #fff;font-family: monospace, serif;letter-spacing: 0.05em;">
-<a class="btn btn-transparent" th:href="@{/user}">Volver a Portal Perfil</a>
+<a class="btn btn-transparent" th:href="@{/}">Volver a home</a>
 <h1 style="color: lawngreen;text-align: center">Perfil</h1>
-<h1 style="text-align: center; color: #00fcb9"><strong th:text="${usuario.getNombre()}"></strong></h1>
+<h1 style="text-align: center; color: #00fcb9"><strong th:text="${c}"></strong></h1>
 <h2 style="text-align: center; color: #00fcb9"><strong th:text="${usuario.getApellidos()}"></strong></h2>
 <h2 style="text-align: center;color: #00fcb9;" th:text="${user}"></h2>
 <h2 style="text-align: center; color: #00fcb9"><strong th:text="${usuario.getActivo()}"></strong></h2>

@@ -9,19 +9,21 @@ import java.io.Serializable;
 public class Competidor implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@Column(name="id_compe")
-	private int idCompe;
-
 	private byte activo;
 
 	private String contraseña;
-
+	@Id
+	@Column(name="email")
 	private String email;
-
 	private String nombre;
-
 	private String rol;
+
+
+
+
+
+
+
 
 	//bi-directional many-to-one association to Equipo
 	@ManyToOne
@@ -29,14 +31,7 @@ public class Competidor implements Serializable {
 	private Equipo equipo;
 
 	public Competidor() {
-	}
 
-	public int getIdCompe() {
-		return this.idCompe;
-	}
-
-	public void setIdCompe(int idCompe) {
-		this.idCompe = idCompe;
 	}
 
 	public byte getActivo() {
