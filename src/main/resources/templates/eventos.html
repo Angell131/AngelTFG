@@ -81,13 +81,11 @@
 
         <td>
             <form th:action="@{/evento/editar}" method="get">
-                <button type="submit" class="btn btn-transparent" style="color: lawngreen" th:value="${evento.getIdEvento()}" name="email"><i class="fa-solid fa-pencil"></i></button>
+                <button type="submit" class="btn btn-transparent" style="color: lawngreen" th:value="${evento.getIdEvento()}" name="id"><i class="fa-solid fa-pencil"></i></button>
             </form>
         </td>
         <td>
-            <form th:action="@{/evento/eliminar}" method="post">
-                <button type="submit" class="btn btn-transparent" style="color: red" th:value="${evento.getIdEvento()}" name="email"><i class="fa-solid fa-trash"></i></button>
-            </form>
+            <a th:href="@{/evento/eliminar/{id}(id=${evento.getIdEvento()})}" class="btn btn-transparent" style="color: #ff0101"><i class="fa-solid fa-trash"></i></a>
         </td>
     </tr>
     </tbody>

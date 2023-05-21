@@ -1,4 +1,5 @@
 package com.example.angel.control;
+import com.example.angel.jpa.Asistencia;
 import com.example.angel.jpa.Competidor;
 import com.example.angel.jpa.Evento;
 import com.example.angel.servicios.AsistenciaService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,29 +36,34 @@ public class Controlador {
 
     @Autowired
     EventoService eventos;
+
     //atiende a la petición localhost:8089/
     @RequestMapping("/")
     public ModelAndView peticionRaiz(Authentication auth) {
         ModelAndView mv = new ModelAndView();
-        if(auth==null)
+        if (auth == null)
             mv.addObject("compe", "No se ha iniciado sesión");
         else
             mv.addObject("compe", auth.getName());
         mv.setViewName("index");
-        String texto = "123";
+        String texto = "angel";
         String encriptado = encoder.encode(texto);
-        System.out.println("Contraseña original: "+texto);
-        System.out.println("Contraseña encriptado: "+encriptado);
+        System.out.println("Contraseña original: " + texto);
+        System.out.println("Contraseña encriptado: " + encriptado);
         return mv;
     }
+
+
     //login para iniciar sesión
     @RequestMapping("login")
     public ModelAndView peticionSesion(Authentication auth) {
         ModelAndView mv = new ModelAndView();
-        if(auth==null)
+        if (auth == null)
             mv.addObject("compe", "No se ha iniciado sesión");
-        else
+        else {
             mv.addObject("compe", auth.getName());
+            //mv.setViewName("redirect:/");
+    }
         mv.setViewName("login");
         return mv;
     }
@@ -90,20 +97,6 @@ public class Controlador {
         mv.addObject("usuario", compe);
 
         mv.setViewName("mapas");
-        return mv;
-    }
-
-    @RequestMapping("/perfil")
-    public ModelAndView peticionPerfil(Authentication auth) {
-        ModelAndView mv = new ModelAndView();
-        if(auth==null)
-            mv.addObject("compe", "No se ha iniciado sesión");
-        else
-            mv.addObject("compe", auth.getName());
-        Optional<Competidor> cOpcional = competidores.buscarCompetidor(auth.getName());
-        Competidor c = cOpcional.get();
-        mv.addObject("usuario", c);
-        mv.setViewName("perfil");
         return mv;
     }
 
@@ -160,8 +153,8 @@ public class Controlador {
     }
 
     @RequestMapping("/evento/editar")
-    public ModelAndView peticioUsuariosEditar(Authentication auth, HttpServletRequest request) {
-        Integer id = request.getParameter("id") == null ? 0 : Integer.valueOf(request.getParameter("id"));
+    public ModelAndView peticioEventoEditar(Authentication auth, HttpServletRequest request) {
+        Integer id = Integer.valueOf(request.getParameter("id"));
         Optional<Evento> eventoOptional = eventos.buscarEvento(id);
         Evento eve = eventoOptional.get();
         ModelAndView mv = new ModelAndView();if(auth==null)
@@ -174,12 +167,50 @@ public class Controlador {
         return mv;
     }
 
-
     @RequestMapping("/actualizar")
-    public String peticionActualizar(Evento e, Authentication auth) {
-        eventos.guardarEvento(e);
+    public String peticionActualizar(Evento evento) {
+        eventos.actualizarEvento(evento);
         return "redirect:/eventos";
     }
+
+    /*@RequestMapping("/evento/eliminar/{id}")
+    public String peticionEventoEliminar(@PathVariable("id") Integer id) {
+        Evento ideve = eventos.buscarEvento(id).get();
+        if (!ideve.getAsistencias().isEmpty()){
+            List<Asistencia> la = ideve.getAsistencias();
+            la.forEach(asistencia -> asistencias.eliminarAsistenciaById(asistencia.getIdAsistencia()));
+        }
+        eventos.eliminarEventoById(ideve.getIdEvento());
+        return "redirect:/eventos";
+    }*/
+
+    @RequestMapping("/evento/eliminar/{id}")
+    public String peticionEventoEliminar(@PathVariable("id") Integer id) {
+        Optional<Evento> optionalEvento = eventos.buscarEvento(id);
+        if (optionalEvento.isPresent()) {
+            Evento ideve = optionalEvento.get();
+            if (!ideve.getAsistencias().isEmpty()) {
+                List<Asistencia> la = ideve.getAsistencias();
+                la.forEach(asistencia -> asistencias.eliminarAsistenciaById(asistencia.getIdAsistencia()));
+            }
+            eventos.eliminarEventoById(ideve.getIdEvento());
+        } else {
+            // El evento no se encuentra, puedes devolver un error 404
+            System.out.println("El evento no se encuentra, puedes devolver un error 404");
+        }
+        return "redirect:/eventos";
+    }
+
+
+
+
+
+
+
+
+
+
+
     @RequestMapping("/actualizarCompetidor")
     public String peticionActualizarTarea(Competidor c, Authentication auth) {
         competidores.guardarCompetidor(c);

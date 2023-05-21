@@ -37,7 +37,8 @@ public class DatabaseWebSecurity {
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/images/**").permitAll()
                 // No se requiere autenticación para acceso a la raiz y al login
-                .requestMatchers("/", "/login","/eventos","/mapas","denegado").permitAll()
+                .requestMatchers("/", "/login","/eventos","/mapas","/**").permitAll()
+                //.requestMatchers("/", "/login").permitAll()
                 // Solo puede acceder a la vista clientes el usuario con rol SUPERUSUARIO
                 .requestMatchers("/admin/**").hasAuthority("ADMINISTRADOR")
                 // Solo puede acceder a la vista productos el usuario con rol USUARIO

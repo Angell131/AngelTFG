@@ -8,33 +8,53 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body style="background-color: #212121;color: #fff;font-family: monospace, serif;letter-spacing: 0.05em;">
-<form th:action="@{/actualizar}" th:object="${usuario}" method="post">
-  <fieldset><legend  style="color: lawngreen">Edición usuario: </legend>
+<form th:action="@{/actualizar}" th:object="${evento}" method="post">
+  <fieldset><legend  style="color: lawngreen">Edición evento: </legend>
     <table>
       <tr>
-        <td><label class="form-label" style="color: lawngreen">NIF: </label></td>
+        <td><label class="form-label" style="color: lawngreen">ID Evento: </label></td>
         <td>
-          <input type="text" class="form-control" max="9" readonly th:field="*{nif}" />
+          <input type="number" class="form-control" readonly th:field="*{idEvento}" />
         </td>
       </tr>
       <tr>
         <td><label class="form-label" style="color: lawngreen">Nombre: </label></td>
-        <td><input type="text" class="form-control" placeholder="Antonio" th:field="*{nombre}" /></td>
+        <td><input type="text" class="form-control" placeholder="Cto. España" th:field="*{nombre}" /></td>
       </tr>
       <tr>
-        <td><label class="form-label" style="color: lawngreen">Apellidos: </label></td>
-        <td><input type="text" class="form-control" placeholder="Scamander" th:field="*{apellidos}" /></td>
+        <td><label class="form-label" style="color: lawngreen">Descripcion: </label></td>
+        <td><input type="text" class="form-control" placeholder="Texto" th:field="*{descripcion}" /></td>
       </tr>
       <tr>
-        <td><label class="form-label" style="color: lawngreen">Estado(1=Activo, 0=Inactivo): </label></td>
-        <td><input type="number" class="form-control" placeholder="0 o 1" min="0" max="1" th:field="*{activo}" /></td>
+        <td><label class="form-label" style="color: lawngreen">Link maps: </label></td>
+        <td><input type="text" class="form-control" placeholder="http" th:field="*{imagen}" /></td>
+      </tr>
+      <tr>
+        <td><label class="form-label" style="color: lawngreen">Fecha inicio: </label></td>
+        <td><input type="text" class="form-control" placeholder="Texto" th:field="*{fechaInicio}" /></td>
+      </tr>
+      <tr>
+        <td><label class="form-label" style="color: lawngreen">Fecha fin: </label></td>
+        <td><input type="text" class="form-control" placeholder="Texto" th:field="*{fechaFin}" /></td>
+      </tr>
+      <tr>
+        <td><label class="form-label" style="color: lawngreen">Longitud: </label></td>
+        <td><input type="number" class="form-control" placeholder="33.1121" th:field="*{longitud}" /></td>
+      </tr>
+      <tr>
+        <td><label class="form-label" style="color: lawngreen">latitud: </label></td>
+        <td><input type="number" class="form-control" placeholder="-3.1121" th:field="*{latitud}" /></td>
+      </tr>
+      <tr>
+        <td><label class="form-label" style="color: lawngreen">Trofeo: </label></td>
+        <td><input type="text" class="form-control" placeholder="Medalla" th:field="*{trofeo}" /></td>
       </tr>
       <tr>
         <td>
-          <button class="btn btn-primary" type="submit">Guardar nuevo usuario</button>
+          <button class="btn btn-primary" type="submit">Actualizar evento</button>
         </td>
       </tr>
-      <input type="hidden" th:field="*{pw}">
+<!--      <input type="hidden" th:field="*{pw}">-->
     </table>
   </fieldset>
 </form>

@@ -37,4 +37,11 @@ public class EventoService {
     }
 
 
+    public void eliminarEvento(Integer id) {
+        eventos.deleteById(id);
+    }
+
+    public void actualizarEvento(Evento evento) {
+        eventos.save(evento);
+    }
 }
