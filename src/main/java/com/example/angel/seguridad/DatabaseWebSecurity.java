@@ -36,8 +36,9 @@ public class DatabaseWebSecurity {
 // Recursos estáticos que no requieren autentificación.
                 .requestMatchers("/css/**").permitAll()
                 .requestMatchers("/images/**").permitAll()
+                .requestMatchers("/error").permitAll()
                 // No se requiere autenticación para acceso a la raiz y al login
-                .requestMatchers("/", "/login","/eventos","/mapas","/**").permitAll()
+                .requestMatchers("/", "/login","/denegado").permitAll()
                 //.requestMatchers("/", "/login").permitAll()
                 // Solo puede acceder a la vista clientes el usuario con rol SUPERUSUARIO
                 .requestMatchers("/admin/**").hasAuthority("ADMINISTRADOR")

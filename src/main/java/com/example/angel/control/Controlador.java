@@ -60,10 +60,8 @@ public class Controlador {
         ModelAndView mv = new ModelAndView();
         if (auth == null)
             mv.addObject("compe", "No se ha iniciado sesión");
-        else {
+        else
             mv.addObject("compe", auth.getName());
-            //mv.setViewName("redirect:/");
-    }
         mv.setViewName("login");
         return mv;
     }
@@ -202,15 +200,6 @@ public class Controlador {
     }
 
 
-
-
-
-
-
-
-
-
-
     @RequestMapping("/actualizarCompetidor")
     public String peticionActualizarTarea(Competidor c, Authentication auth) {
         competidores.guardarCompetidor(c);
@@ -243,47 +232,7 @@ public class Controlador {
         return mv;
     }
 
-    @RequestMapping("/compe/tareas/listado")
-    public ModelAndView peticionListadoTareas(Authentication auth) {
-        ModelAndView mv = new ModelAndView();
-        if(auth==null)
-            mv.addObject("compe", "No se ha iniciado sesión");
-        else
-            mv.addObject("compe", auth.getName());
-        List<Usuario> listaUsuarios = usuarios.listaUsuarios();
-        mv.addObject("listaUsuarios", listaUsuarios);
 
-        mv.setViewName("listadotareas");
-        return mv;
-    }
-
-
-
-    @RequestMapping("/admin")
-    public ModelAndView peticionAdministrador(Authentication auth) {
-        ModelAndView mv = new ModelAndView();
-        if(auth==null)
-            mv.addObject("compe", "No se ha iniciado sesión");
-        else
-            mv.addObject("compe", auth.getName());
-
-        List<Usuario> listaUsuarios = usuarios.listaUsuarios();
-         mv.addObject("listaUsuarios", listaUsuarios);
-
-        mv.setViewName("admin");
-        return mv;
-    }
-
-    @RequestMapping("/admin/dashboard")
-    public ModelAndView peticionDashboard(Authentication auth) {
-        ModelAndView mv = new ModelAndView();
-        if(auth==null)
-            mv.addObject("compe", "No se ha iniciado sesión");
-        else
-            mv.addObject("compe", auth.getName());
-        mv.setViewName("dashboard");
-        return mv;
-    }
 
 
     @RequestMapping("/guardar")
@@ -313,57 +262,5 @@ public class Controlador {
     }
 
 
-    @RequestMapping("/admin/usuario/mostar")
-    public ModelAndView peticionUsuariosMostrar(Authentication auth) {
-        ModelAndView mv = new ModelAndView();
-        if(auth==null)
-            mv.addObject("compe", "No se ha iniciado sesión");
-        else
-            mv.addObject("compe", auth.getName());
-        mv.setViewName("mostrarusuarios");
-        return mv;
-    }
-
-    @RequestMapping("/admin/usuario/editar")
-    public ModelAndView peticioUsuariosEditar(Authentication auth, HttpServletRequest request) {
-        String nif = request.getParameter("nif");
-        Optional<Usuario> usuarioOpt = usuarios.buscarUsuario(nif);
-        Usuario compe = usuarioOpt.get();
-        ModelAndView mv = new ModelAndView();if(auth==null)
-            mv.addObject("compe", "No se ha iniciado sesión");
-        else
-            mv.addObject("compe", auth.getName());
-        mv.addObject("usuario", compe);
-        mv.setViewName("editarusuarios");
-        return mv;
-    }
-
-    @RequestMapping("/actualizar")
-    public String peticionActualizar(Usuario u, Authentication auth) {
-        usuarios.guardarUsuario(u);
-        return "redirect:/admin";
-    }
-    @RequestMapping("/actualizarTarea")
-    public String peticionActualizarTarea(Tarea t, Authentication auth) {
-        tareas.guardarTarea(t);
-        return "redirect:/compe/tareas/listado";
-    }
-
-    @RequestMapping("/eliminar/{nif}")
-    public String peticionEliminar(@PathVariable("nif") String nif, Authentication auth) {
-        Usuario u = usuarios.buscarUsuario(nif).get();
-
-        if (!u.getRoles().isEmpty()){
-            List<Rol> lr = u.getRoles();
-            lr.forEach(rol -> roles.eliminarRolById(rol.getId()));
-        }
-        if (!u.getTareas().isEmpty()){
-            List<Tarea> lt = u.getTareas();
-            lt.forEach(tarea -> tareas.eliminarTareaById(tarea.getId()));
-        }
-        usuarios.eliminarUsuarioById(u.getNif());
-
-        return "redirect:/admin";
-
-    }*/
+    */
 }

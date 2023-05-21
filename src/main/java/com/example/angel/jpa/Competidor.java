@@ -18,13 +18,6 @@ public class Competidor implements Serializable {
 	private String nombre;
 	private String rol;
 
-
-
-
-
-
-
-
 	//bi-directional many-to-one association to Equipo
 	@ManyToOne
 	@JoinColumn(name="id_equipo")
