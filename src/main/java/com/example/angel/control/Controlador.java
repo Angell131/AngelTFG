@@ -138,7 +138,7 @@ public class Controlador {
 
 
     @RequestMapping("/evento/nuevo")
-    public ModelAndView peticionNuevaTarea(Authentication auth) {
+    public ModelAndView peticionNuevoEvento(Authentication auth) {
         ModelAndView mv = new ModelAndView();
         if(auth==null)
             mv.addObject("user", "No se ha iniciado sesión");
@@ -149,6 +149,13 @@ public class Controlador {
         mv.setViewName("nuevoevento");
         return mv;
     }
+
+    @RequestMapping("/guardar")
+    public String peticionGuardar(Evento evento) {
+        eventos.guardarEvento(evento);
+        return "redirect:/eventos";
+    }
+
 
     @RequestMapping("/evento/editar")
     public ModelAndView peticioEventoEditar(Authentication auth, HttpServletRequest request) {
@@ -171,16 +178,6 @@ public class Controlador {
         return "redirect:/eventos";
     }
 
-    /*@RequestMapping("/evento/eliminar/{id}")
-    public String peticionEventoEliminar(@PathVariable("id") Integer id) {
-        Evento ideve = eventos.buscarEvento(id).get();
-        if (!ideve.getAsistencias().isEmpty()){
-            List<Asistencia> la = ideve.getAsistencias();
-            la.forEach(asistencia -> asistencias.eliminarAsistenciaById(asistencia.getIdAsistencia()));
-        }
-        eventos.eliminarEventoById(ideve.getIdEvento());
-        return "redirect:/eventos";
-    }*/
 
     @RequestMapping("/evento/eliminar/{id}")
     public String peticionEventoEliminar(@PathVariable("id") Integer id) {
@@ -200,11 +197,11 @@ public class Controlador {
     }
 
 
-    @RequestMapping("/actualizarCompetidor")
+   /* @RequestMapping("/actualizarCompetidor")
     public String peticionActualizarTarea(Competidor c, Authentication auth) {
         competidores.guardarCompetidor(c);
         return "redirect:/competidores";
-    }
+    }*/
 
 
 
