@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body style="background-color: #212121;color: #fff;font-family: monospace, serif;letter-spacing: 0.05em;">
+<a class="btn btn-primary" th:href="@{/eventos}"><i class="fa-solid fa-arrow-left"></i>Volver a eventos</a>
 <form th:action="@{/guardar}" th:object="${evento}" method="post">
-  <fieldset><legend  style="color: lawngreen">Edición evento: </legend>
+  <fieldset><legend  style="color: lawngreen">Creación evento: </legend>
     <table>
       <tr>
         <td><label class="form-label" style="color: lawngreen">ID Evento: </label></td>
@@ -25,7 +26,7 @@
         <td><label class="form-label" style="color: lawngreen">Descripcion: </label></td>
         <td><input type="text" class="form-control" placeholder="Texto" th:field="*{descripcion}" /></td>
       </tr>
-      <tr  style="display: flex;align-items: center;justify-content: center;">
+      <tr>
         <td><a class="btn btn-warning" href="https://www.google.es/maps" target="_blank">Ir a Google Maps</a></td>
       </tr>
       <tr>
