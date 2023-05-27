@@ -4,11 +4,11 @@
   <title>Gestor de recomendaciones: Registro</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
   <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous"/>
-  <link rel="stylesheet" th:href="@{css/estilos.css}">
+  <link rel="stylesheet" th:href="@{../css/estilos.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body style="background-color: #212121;color: #fff;font-family: monospace, serif;letter-spacing: 0.05em;">
-
+<a class="btn btn-primary" th:href="@{/eventos}"><i class="fa-solid fa-arrow-left"></i>Volver a eventos</a>
 <form th:action="@{/actualizar}" th:object="${evento}" method="post">
   <fieldset><legend  style="color: lawngreen">Edición evento: </legend>
     <table>
@@ -40,11 +40,11 @@
       </tr>
       <tr>
         <td><label class="form-label" style="color: lawngreen">Longitud: </label></td>
-        <td><input type="number" class="form-control" placeholder="33.1121" th:field="*{longitud}" /></td>
+        <td><input type="number" min="-100.0" max="1000.99999" step="0.00001" class="form-control" placeholder="33.1121" th:field="*{longitud}" /></td>
       </tr>
       <tr>
         <td><label class="form-label" style="color: lawngreen">latitud: </label></td>
-        <td><input type="number" class="form-control" placeholder="-3.1121" th:field="*{latitud}" /></td>
+        <td><input type="number" min="-100.0" max="1000.99999" step="0.00001" class="form-control" placeholder="-3.1121" th:field="*{latitud}" /></td>
       </tr>
       <tr>
         <td><label class="form-label" style="color: lawngreen">Trofeo: </label></td>
